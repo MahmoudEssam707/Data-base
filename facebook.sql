@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2023 at 06:45 PM
+-- Generation Time: May 13, 2023 at 07:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -55,7 +55,8 @@ CREATE TABLE `follows` (
 CREATE TABLE `friend_with` (
   `user1_id` int(11) NOT NULL,
   `user2_id` int(11) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `friend_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -117,6 +118,25 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `Fname`, `Lname`, `Date_of_Birth`, `Password`, `Phone`, `Faculty`, `Relationship`, `Address`) VALUES
+(1, 'John', 'Doe', '1990-05-13', '0b14d501a594442a01c6859541bcb3e8164d183d32937b851835442f69d5c94e', '1234567890', 'Engineering', 'Single', '123 Main St'),
+(2, 'Jane', 'Smith', '1995-08-22', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4', '9876543210', 'Business', 'Married', '456 Elm St'),
+(3, 'Mike', 'Johnson', '1988-11-02', '5906ac361a137e2d286465cd6588ebb5ac3f5ae955001100bc41577c3d751764', '5555555555', 'Medicine', 'Single', '789 Oak St');
+
+--
+-- Triggers `users`
+--
+DELIMITER $$
+CREATE TRIGGER `hash_password_trigger` BEFORE INSERT ON `users` FOR EACH ROW BEGIN
+    SET NEW.password = SHA2(NEW.password, 256);
+END
+$$
+DELIMITER ;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -139,8 +159,8 @@ ALTER TABLE `follows`
 -- Indexes for table `friend_with`
 --
 ALTER TABLE `friend_with`
-  ADD PRIMARY KEY (`user1_id`,`user2_id`),
-  ADD KEY `user2_id` (`user2_id`);
+  ADD PRIMARY KEY (`friend_id`),
+  ADD UNIQUE KEY `friend_id` (`friend_id`);
 
 --
 -- Indexes for table `page`
@@ -179,6 +199,12 @@ ALTER TABLE `chat`
   MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `friend_with`
+--
+ALTER TABLE `friend_with`
+  MODIFY `friend_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
@@ -188,7 +214,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -207,13 +233,6 @@ ALTER TABLE `chat`
 ALTER TABLE `follows`
   ADD CONSTRAINT `follows_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
   ADD CONSTRAINT `follows_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `page` (`p_id`);
-
---
--- Constraints for table `friend_with`
---
-ALTER TABLE `friend_with`
-  ADD CONSTRAINT `friend_with_ibfk_1` FOREIGN KEY (`user1_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `friend_with_ibfk_2` FOREIGN KEY (`user2_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `posts`

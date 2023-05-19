@@ -31,6 +31,9 @@
 			<div id="side6" class="bodyn">PAGES</div>
 			<div id="side7" class="bodyn">Pages feed</div>
 			<div id="side8" class="bodyn">Like pages</div>
+			<div id="side10" class="bodyn">
+				<button onclick="window.location.href='login.php'">Sign out</button>
+			</div>
 			<div id="side9" class="bodyn">
 			<a href="page_create.php">Create a page</a></div>
 			</div>
@@ -124,9 +127,19 @@ font-size:20px;
 color:#868383;
 
 }
-#side3{top:30px;
+#side9{
+top:90px;
 left:15px;
 width:160px;
+height:25px;
+font-size:15px;
+color:#000;
+padding-top:5px;
+padding-left:20px;
+}
+#side3{top:30px;
+left:15px;
+width:170px;
 height:25px;
 font-size:15px;
 color:#363030;
@@ -178,7 +191,16 @@ color:#363030;
 padding-top:5px;
 padding-left:20px;
 }
-
+#side10{
+top:300px;
+left:15px;
+width:160px;
+height:25px;
+font-size:15px;
+color:#000;
+padding-top:5px;
+padding-left:20px;
+}
 
 #side1:hover{background:#e9f0f2;
 }
@@ -218,7 +240,19 @@ padding-right:10px;
 padding-top:10px;
 }
 
-
+#signout{
+top:290px;
+left:370px;
+-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+position:absolute;
+background:white;
+width:580px;
+height:600px;
+border-radius:3px/3px;
+padding-left:10px;
+padding-right:10px;
+padding-top:10px;
+}
 
 .header0001{
 position:fixed;

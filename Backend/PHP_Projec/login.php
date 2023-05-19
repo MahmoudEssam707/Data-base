@@ -2,7 +2,7 @@
 session_start();
 require 'config.php';
 if(!empty($_SESSION["id"])){
-  header("Location: index.php");
+  header("Location: home.php");
 }
 if(isset($_POST["submit"])){
   $usernameemail = $_POST["usernameemail"];
@@ -13,7 +13,7 @@ if(isset($_POST["submit"])){
     if($password == $row['password']){
       $_SESSION["login"] = true;
       $_SESSION["id"] = $row["id"];
-      header("Location: index.php");
+      header("Location: home.php");
     }
     else{
       echo "<script> alert('Wrong Password'); </script>";
@@ -32,7 +32,7 @@ if(isset($_POST["submit"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Facebook Login Page</title>
-    <linkrel="stylesheet" href="./login_form_2.css" />
+    <link rel="stylesheet" href="./login_form_2.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -265,47 +265,22 @@ form .create-account:hover {
 }
 
     </style>
-  </head>
-  <body>
-  <?php
-require 'config.php';
-if(!empty($_SESSION["id"])){
-  header("Location: index.php");
-}
-if(isset($_POST["submit"])){
-  $usernameemail = $_POST["usernameemail"];
-  $password = $_POST["password"];
-  $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$usernameemail' OR email = '$usernameemail'");
-  $row = mysqli_fetch_assoc($result);
-  if(mysqli_num_rows($result) > 0){
-    if($password == $row['password']){
-      $_SESSION["login"] = true;
-      $_SESSION["id"] = $row["id"];
-      header("Location: index.php");
-    }
-    else{
-      echo "<script> alert('Wrong Password'); </script>";
-    }
-  }
-  else{
-    echo "<script> alert('User Not Registered'); </script>";
-  }
-}
-?>
+    </head>
+ <body>
     <div class="content">
       <div class="flex-div">
         <div class="name-content">
           <h1 class="logo">Facebook</h1>
           <p>Connect with friends and the world around you on Facebook.</p>
         </div>
-          <form method="POST">
-            <input type="text" name="usernameemail" placeholder="Email or Phone Number" required />
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" name="submit" class="login" onclick="window.location.href='home.php'">Log In</button>
-            <a href="#">Forgot Password ?</a>
-            <hr>
-            <button class="create-account" onclick="window.location.href='registration.php'">Create New Account</button>
-          </form>
+        <form method="POST">
+          <input type="text" name="usernameemail" placeholder="Email or Phone Number" required />
+          <input type="password" name="password" placeholder="Password" required>
+          <button type="submit" name="submit" class="login">Log In</button>
+          <a href="#">Forgot Password ?</a>
+          <hr>
+          <button class="create-account" onclick="window.location.href='registration.php'">Create New Account</button>
+        </form>
       </div>
     </div>
   </body>

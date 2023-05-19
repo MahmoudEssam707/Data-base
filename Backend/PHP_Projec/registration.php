@@ -29,7 +29,6 @@ if(isset($_POST["submit"])){
 }
 ?>
 <!DOCTYPE html>
-<!DOCTYPE html>
 
 <html>
 
@@ -75,28 +74,20 @@ if(isset($_POST["submit"])){
       </div>
 
     </div>
+    <body>
 
     <div id="rightbod">
-      <div class="signup bolder">Sign Up</div>
-      <div class="free bolder">It's quick and easy.</div>
+       <div class="signup bolder">Sign Up</div>
+       <div class="free bolder">It's quick and easy.</div>
+  <body>
+    <form class="" action="" method="post" autocomplete="off">
+      <input type="text" name="name" id = "name" required value="" class="inputbody in1" placeholder="First name">
+      <input type="text" name="username" id = "username" required value="" class="inputbody in1 fr" placeholder="Last name"> <br>
+      <input type="email" name="email" id = "email" required value="" class="inputbody in2" placeholder="Email or mobile number"> <br>
+      <input type="password" name="password" id = "password" required value="" class="inputbody in2" placeholder="password"> <br>
+      <input type="password" name="confirmpassword" id = "confirmpassword" required value="" class="inputbody in2" placeholder="confirmpassword"> <br>
 
-      <div class="formbox">
-        <input type="text" class="inputbody in1" placeholder="First name">
-        <input type="text" class="inputbody in1 fr" placeholder="Last name">
-      </div>
-      <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="Email or mobile number">
-      </div>
-      <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="Re-enter email or mobile number">
-      </div>
-      <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="New password">
-      </div>
-      <div class="formbox">
-        <div class="bday">Birthday</div>
-      </div>
-      <div class="formbox">
+      
         <span data-type="selectors">
           <span>
             <select title="Month" class="selectbody">
@@ -263,23 +254,20 @@ if(isset($_POST["submit"])){
               <option value="1905">1905</option>
             </select>
           </span>
-          <div class="fb1 why h">Why do I need to provide my birthday?</div>
-      </div>
-      <div class="formbox mt1">
+
         <span data-type="radio" class="spanpad">
         <input type="radio" id="fem" name="gender" class="m0">
         <label for="fem" class="gender">Female</label>
         <input type="radio" id="male" name="gender" class="m0">
         <label for="male" class="gender">Male</label>
         </span>
-      </div>
-      <div class="formbox">
-        <div class="agree">
-          By clicking Sign Up, you agree to our <div class="link">Terms</div> and that you have read our <div class="link">Data Use Policy</div>, including our <div class="link">Cookie Use</div>.
-        </div>
-      </div>
-      <div class="formbox">
-        <button type="submit" class="signbut bolder">Sign Up</button>
+
+        <button type="submit" class="signbut bolder" name="submit">Sign Up</button>
+    </form>
+    <br>
+    <a href="login.php">Login</a>
+  </body>
+
       </div>
       <div class="formbox">
       </div>
@@ -648,5 +636,5 @@ h1 {
 }
 
 </style>
-</html>
+
 </html>

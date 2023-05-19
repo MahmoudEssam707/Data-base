@@ -31,9 +31,13 @@
 			<div id="side6" class="bodyn">PAGES</div>
 			<div id="side7" class="bodyn">Pages feed</div>
 			<div id="side8" class="bodyn">Like pages</div>
+<<<<<<< Updated upstream
 			<div id="side10" class="bodyn">
 				<button onclick="window.location.href='login.php'">Sign out</button>
 			</div>
+=======
+			<div id="side10" class="bodyn"href="login.php" >Sign out</div>
+>>>>>>> Stashed changes
 			<div id="side9" class="bodyn">
 			<a href="page_create.php">Create a page</a></div>
 			</div>

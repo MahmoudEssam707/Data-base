@@ -23,6 +23,7 @@ if(isset($_POST["submit"])){
     echo "<script> alert('User Not Registered'); </script>";
   }
 }
+session_destroy();
 ?>
 
 <!DOCTYPE html>

@@ -31,15 +31,8 @@
 			<div id="side6" class="bodyn">PAGES</div>
 			<div id="side7" class="bodyn">Pages feed</div>
 			<div id="side8" class="bodyn">Like pages</div>
-<<<<<<< Updated upstream
-			<div id="side10" class="bodyn">
-				<button onclick="window.location.href='login.php'">Sign out</button>
-			</div>
-=======
-			<div id="side10" class="bodyn"href="login.php" >Sign out</div>
->>>>>>> Stashed changes
-			<div id="side9" class="bodyn">
-			<a href="page_create.php">Create a page</a></div>
+		    <div id="logout" class="bodyn"><a href="login.php">Log Out</a></div>
+			<div id="side9" class="bodyn"><a href="page_create.php">Create a page</a></div>
 			</div>
 		</div>
 	</div>
@@ -52,16 +45,24 @@
 			<hr><br><br><br><br><br><br>
 			<hr>
 		</div>
-		<div id="postpos" class="post">
-			<input type="submit" id="buttonpost" value="post" />
 		</div>
-		<div id="postboxpos" class="post">
-			<textarea placeholder="What's in your mind"
-				id="postbox">
-			</textarea>
-		</div>
+		<div class="post00">
+         <form id="post-form">
+            <textarea name="post-text" placeholder="What's on your mind?"></textarea>
+            <button type="submit" name="post-btn" id="btn" class="S">Post</button>
+         </form>
+        </div>
+
+<div class="post-container">
+  <!-- Display posts here -->
+</div>
+
+     <div class="post-container">
+     <!-- Display posts here -->
+     </div>
+
 	</div>
-	</div>
+</div>
 
 </body>
 <style>
@@ -81,6 +82,19 @@ top:0;
 bottom:0;
 color: white;
 z-index:7;
+}
+#btn
+{
+top:230px;
+left:850px;
+position:fixed;
+width:90px;
+height:30px;
+font-family:verdana;
+}
+#searcharea{top:17px;
+left:400px;
+height:50px;
 }
 #name{left:0px;
 font-family: verdana sans-serif;
@@ -195,8 +209,8 @@ color:#363030;
 padding-top:5px;
 padding-left:20px;
 }
-#side10{
-top:300px;
+#logout{
+top:290px;
 left:15px;
 width:160px;
 height:25px;
@@ -205,30 +219,36 @@ color:#000;
 padding-top:5px;
 padding-left:20px;
 }
-
-#side1:hover{background:#e9f0f2;
+form .S {
+  background: #1877f2;
+  border-radius: 0.4rem;
+  font-size: 1.1rem;
+  color: #000;
 }
-#side4:hover{background:#e9f0f2;
-}#side6:hover{background:#e9f0f2;
-}#side7:hover{background:#e9f0f2;
-}#side8:hover{background:#e9f0f2;
-}#side9:hover{background:#e9f0f2;
-}#side12:hover{background:#e9f0f2;
-}#side13:hover{background:#e9f0f2;
-}#side14:hover{background:#e9f0f2;
-}#side15:hover{background:#e9f0f2;
-}#side16:hover{background:#e9f0f2;
-}#side17:hover{background:#e9f0f2;
-}#side18:hover{background:#e9f0f2;
-}#side19:hover{background:#e9f0f2;
-}#side20:hover{background:#e9f0f2;
-}.post00{top:70px;
+
+#side1:hover{background:#e9f0f2;}
+#side4:hover{background:#e9f0f2;}
+#side6:hover{background:#e9f0f2;}
+#side7:hover{background:#e9f0f2;}
+#side8:hover{background:#e9f0f2;}
+#side9:hover{background:#e9f0f2;}
+#side12:hover{background:#e9f0f2;}
+#side13:hover{background:#e9f0f2;}
+#side14:hover{background:#e9f0f2;}
+#side15:hover{background:#e9f0f2;}
+#side16:hover{background:#e9f0f2;}
+#side17:hover{background:#e9f0f2;}
+#side18:hover{background:#e9f0f2;}
+#side19:hover{background:#e9f0f2;}
+#side20:hover{background:#e9f0f2;}
+
+.post00
+{
+top:70px;
 left:370px;
-position:absolute;
+position:fixed;
 width:600px;
 height:210px;
-
--webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 }
 
 .post10{top:290px;
@@ -281,7 +301,8 @@ color:#363030;
 
 -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 font-size:15px;}
-.post{top:70px;
+.post
+{top:70px;
 left:370px;
 position:absolute;
 width:600px;
@@ -306,14 +327,6 @@ padding-top:10px;
 top:170px;
 width:85px;
 height:30px;}
-#buttonpost{width:85px;
-height:30px;
-border-radius:4px/4px;
-background:#0000FF;
-font-size:15px;
-outline:none;
-color:white;
-}
 #postboxpos{top:45px;
 left:10px;
 height:105px;
@@ -387,19 +400,49 @@ font-size:20;
 color: #868383;
 }
 
+.post-container {
+  margin-top: 20px;
+}
+
+.post10 {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.post10 p:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post10 p.post-date {
+  font-size: 0.8em;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.post10 button {
+  background-color: #4CAF50;
+  color: white;
+ border: none;
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.post10 .comments {
+  margin-top: 10px;
+}
+
+.post10 .comments p {
+  margin-bottom: 5px;
+}
 
 #post1pos{ left:100px;
 top:500;
 width:100px;
 height:30px;}
-#buttonpost1{width:100px;
-height:30px;
-font-size:15px;
-border-radius:4px/4px;
-color:white;
-background:#1877f2;
-outline:none;
-}
 #sidebox2{top:0px;
 left:0;
 width:200px;
@@ -429,4 +472,36 @@ font-size:20px;
 color:#868383;
 }
 </style>
+<script>
+	// Get the form, textarea, and post container elements
+const postForm = document.getElementById('post-form');
+const postTextarea = postForm.querySelector('textarea');
+const postContainer = document.querySelector('.post-container');
+
+// Add an event listener to the form submit event
+postForm.addEventListener('submit', e => {
+  e.preventDefault(); // Prevent the default form submission behavior
+
+  const postText = postTextarea.value; // Get the post text
+  const postDate = new Date(); // Get the current date and time
+  const postLikes = 0; // Set the initial likes count
+  const postComments = []; // Set the initial comments array
+
+  // Create a new post element and add it to the post container
+  const postElement = document.createElement('div');
+  postElement.classList.add('post10');
+  postElement.innerHTML = `
+    <p>${postText}</p>
+    <p class="post-date">${postDate}</p>
+    <button class="like-btn">Like</button>
+   <button class="comment-btn">Comment</button>
+    <button class="share-btn">Share</button>
+    <div class="comments"></div>
+  `;
+  postContainer.insertBefore(postElement, postContainer.firstChild);
+
+  // Clear the post textarea
+  postTextarea.value = '';
+});
+</script>
 </html>

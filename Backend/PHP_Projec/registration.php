@@ -1,41 +1,32 @@
 <?php
-// Retrieve form data
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-// Combine first name and last name into a single variable
-$name = $first_name . ' ' . $last_name;
-
-// Use only the first name as the username
-$username = $first_name;
-
-// Validate and sanitize form data
-// (e.g., remove potential SQL injection characters)
-
-// Establish a database connection
-$conn = mysqli_connect('localhost', 'username', 'password', 'reglog');
-
-// Check if email already exists in database
-$email_query = "SELECT * FROM tb_user WHERE email = '$email'";
-$email_result = mysqli_query($conn, $email_query);
-if(mysqli_num_rows($email_result) > 0){
-  // If email already exists, redirect user to an error page
-  header("Location: error.php");
-  exit;
-}
-
-// Construct and execute SQL query to insert data
-$sql = "INSERT INTO tb_user (name, username, email, password) VALUES ('$name', '$username', '$email', '$password')";
-mysqli_query($conn, $sql);
-
-// Close the database connection
-mysqli_close($conn);
-
-// Redirect the user to a confirmation page
-header("Location: confirmation.php");
-exit;
+ require 'config.php';
+ if(!empty($_SESSION["id"])){
+   header("Location: index.php");
+ }
+ if(isset($_POST["submit"])){
+   $name = $_POST["name"];
+   $username = $_POST["username"];
+   $email = $_POST["email"];
+   $password = $_POST["password"];
+   $confirmpassword = $_POST["confirmpassword"];
+   $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
+   if(mysqli_num_rows($duplicate) > 0){
+     echo
+     "<script> alert('Username or Email Has Already Taken'); </script>";
+   }
+   else{
+     if($password == $confirmpassword){
+       $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
+       mysqli_query($conn, $query);
+       echo
+       "<script> alert('Registration Successful'); </script>";
+     }
+     else{
+       echo
+       "<script> alert('Password Does Not Match'); </script>";
+     }
+   }
+ }
 ?>
 <!DOCTYPE html>
 

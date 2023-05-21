@@ -1,640 +1,121 @@
 <?php
- require 'config.php';
- if(!empty($_SESSION["id"])){
-   header("Location: index.php");
- }
- if(isset($_POST["submit"])){
-   $name = $_POST["name"];
-   $username = $_POST["username"];
-   $email = $_POST["email"];
-   $password = $_POST["password"];
-   $confirmpassword = $_POST["confirmpassword"];
-   $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
-   if(mysqli_num_rows($duplicate) > 0){
-     echo
-     "<script> alert('Username or Email Has Already Taken'); </script>";
-   }
-   else{
-     if($password == $confirmpassword){
-       $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
-       mysqli_query($conn, $query);
-       echo
-       "<script> alert('Registration Successful'); </script>";
-     }
-     else{
-       echo
-       "<script> alert('Password Does Not Match'); </script>";
-     }
-   }
- }
+require 'config.php';
+
+if (!empty($_SESSION["id"])) {
+  header("Location: index.php");
+}
+
+if (isset($_POST["submit"])) {
+  $fname = $_POST["fname"];
+  $lname = $_POST["lname"];
+  $dob = $_POST["dob"];
+  $password = $_POST["password"];
+  $phone = $_POST["phone"];
+  $faculty = $_POST["faculty"];
+  $relationship = $_POST["relationship"];
+  $address = $_POST["address"];
+  $email = $_POST["email"]; // New field
+
+  $duplicate = mysqli_query($conn, "SELECT * FROM users WHERE Fname = '$fname' OR Lname = '$lname'");
+  if (mysqli_num_rows($duplicate) > 0) {
+    echo "<script> alert('First name or Last name has already been taken'); </script>";
+  } else {
+    // Hash the password
+    $hashedPassword = hash('sha256', $password);
+
+    $query = "INSERT INTO users (Fname, Lname, Date_of_Birth, Password, Phone, Faculty, Relationship, Address, Email)
+              VALUES ('$fname', '$lname', '$dob', '$hashedPassword', '$phone', '$faculty', '$relationship', '$address', '$email')";
+    mysqli_query($conn, $query);
+
+    echo "<script> alert('Registration Successful'); </script>";
+  }
+}
 ?>
+
+
 <!DOCTYPE html>
-
 <html>
-
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-
-<div id="navwrapper">
-  <div id="navbar">
-    <h1 class="logowrapper">facebook</h1>
-
-  </div>
-</div>
-
-<div id="contentwrapper">
-  <div id="content">
-
-    <div id="leftbod">
-
-      <div class="connect bolder">
-        Facebook helps you connect and share with the people in your life.</div>
-
-      <div class="leftbar">
-        <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851565_602269956474188_918638970_n.png" alt="" class="iconwrap fb1" />
-        <div class="fb1">
-          <span class="rowtext">See photos and updates</span>
-          <span class="rowtext2 fb1">from friends in News Feed</span>
-        </div>
-      </div>
-
-      <div class="leftbar">
-        <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851585_216271631855613_2121533625_n.png" alt="" class="iconwrap fb1" />
-        <div class="fb1">
-          <span class="rowtext">Share what's new</span>
-          <span class="rowtext2 fb1">in your life on your timeline</span>
-        </div>
-      </div>
-
-      <div class="leftbar">
-        <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851558_160351450817973_1678868765_n.png " alt="" class="iconwrap fb1" />
-        <div class="fb1">
-          <span class="rowtext">Find more</span>
-          <span class="rowtext2 fb1">of what you're looking for with graph search</span>
-        </div>
-      </div>
-
-    </div>
-    <body>
-
-    <div id="rightbod">
-       <div class="signup bolder">Sign Up</div>
-       <div class="free bolder">It's quick and easy.</div>
-  <body>
-    <form class="" action="" method="post" autocomplete="off">
-      <input type="text" name="name" id = "name" required value="" class="inputbody in1" placeholder="First name">
-      <input type="text" name="username" id = "username" required value="" class="inputbody in1 fr" placeholder="Last name"> <br>
-      <input type="email" name="email" id = "email" required value="" class="inputbody in2" placeholder="Email or mobile number"> <br>
-      <input type="password" name="password" id = "password" required value="" class="inputbody in2" placeholder="password"> <br>
-      <input type="password" name="confirmpassword" id = "confirmpassword" required value="" class="inputbody in2" placeholder="confirmpassword"> <br>
-
-      
-        <span data-type="selectors">
-          <span>
-            <select title="Month" class="selectbody">
-              <option value="0" selected="1">Month</option>
-              <option value="1">Jan</option>
-              <option value="2">Feb</option>
-              <option value="3">Mar</option>
-              <option value="4">Apr</option>
-              <option value="5">May</option>
-              <option value="6">Jun</option>
-              <option value="7">Jul</option>
-              <option value="8">Aug</option>
-              <option value="9">Sep</option>
-              <option value="10">Oct</option>
-              <option value="11">Nov</option>
-              <option value="12">Dec</option>
-            </select>
-            <select title="Day" class="selectbody fl">
-              <option value="0" selected="1">Day</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-            <select title="Year" class="selectbody fl">
-              <option value="0" selected="1">Year</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-              <option value="2012">2012</option>
-              <option value="2011">2011</option>
-              <option value="2010">2010</option>
-              <option value="2009">2009</option>
-              <option value="2008">2008</option>
-              <option value="2007">2007</option>
-              <option value="2006">2006</option>
-              <option value="2005">2005</option>
-              <option value="2004">2004</option>
-              <option value="2003">2003</option>
-              <option value="2002">2002</option>
-              <option value="2001">2001</option>
-              <option value="2000">2000</option>
-              <option value="1999">1999</option>
-              <option value="1998">1998</option>
-              <option value="1997">1997</option>
-              <option value="1996">1996</option>
-              <option value="1995">1995</option>
-              <option value="1994">1994</option>
-              <option value="1993">1993</option>
-              <option value="1992">1992</option>
-              <option value="1991">1991</option>
-              <option value="1990">1990</option>
-              <option value="1989">1989</option>
-              <option value="1988">1988</option>
-              <option value="1987">1987</option>
-              <option value="1986">1986</option>
-              <option value="1985">1985</option>
-              <option value="1984">1984</option>
-              <option value="1983">1983</option>
-              <option value="1982">1982</option>
-              <option value="1981">1981</option>
-              <option value="1980">1980</option>
-              <option value="1979">1979</option>
-              <option value="1978">1978</option>
-              <option value="1977">1977</option>
-              <option value="1976">1976</option>
-              <option value="1975">1975</option>
-              <option value="1974">1974</option>
-              <option value="1973">1973</option>
-              <option value="1972">1972</option>
-              <option value="1971">1971</option>
-              <option value="1970">1970</option>
-              <option value="1969">1969</option>
-              <option value="1968">1968</option>
-              <option value="1967">1967</option>
-              <option value="1966">1966</option>
-              <option value="1965">1965</option>
-              <option value="1964">1964</option>
-              <option value="1963">1963</option>
-              <option value="1962">1962</option>
-              <option value="1961">1961</option>
-              <option value="1960">1960</option>
-              <option value="1959">1959</option>
-              <option value="1958">1958</option>
-              <option value="1957">1957</option>
-              <option value="1956">1956</option>
-              <option value="1955">1955</option>
-              <option value="1954">1954</option>
-              <option value="1953">1953</option>
-              <option value="1952">1952</option>
-              <option value="1951">1951</option>
-              <option value="1950">1950</option>
-              <option value="1949">1949</option>
-              <option value="1948">1948</option>
-              <option value="1947">1947</option>
-              <option value="1946">1946</option>
-              <option value="1945">1945</option>
-              <option value="1944">1944</option>
-              <option value="1943">1943</option>
-              <option value="1942">1942</option>
-              <option value="1941">1941</option>
-              <option value="1940">1940</option>
-              <option value="1939">1939</option>
-              <option value="1938">1938</option>
-              <option value="1937">1937</option>
-              <option value="1936">1936</option>
-              <option value="1935">1935</option>
-              <option value="1934">1934</option>
-              <option value="1933">1933</option>
-              <option value="1932">1932</option>
-              <option value="1931">1931</option>
-              <option value="1930">1930</option>
-              <option value="1929">1929</option>
-              <option value="1928">1928</option>
-              <option value="1927">1927</option>
-              <option value="1926">1926</option>
-              <option value="1925">1925</option>
-              <option value="1924">1924</option>
-              <option value="1923">1923</option>
-              <option value="1922">1922</option>
-              <option value="1921">1921</option>
-              <option value="1920">1920</option>
-              <option value="1919">1919</option>
-              <option value="1918">1918</option>
-              <option value="1917">1917</option>
-              <option value="1916">1916</option>
-              <option value="1915">1915</option>
-              <option value="1914">1914</option>
-              <option value="1913">1913</option>
-              <option value="1912">1912</option>
-              <option value="1911">1911</option>
-              <option value="1910">1910</option>
-              <option value="1909">1909</option>
-              <option value="1908">1908</option>
-              <option value="1907">1907</option>
-              <option value="1906">1906</option>
-              <option value="1905">1905</option>
-            </select>
-          </span>
-
-        <span data-type="radio" class="spanpad">
-        <input type="radio" id="fem" name="gender" class="m0">
-        <label for="fem" class="gender">Female</label>
-        <input type="radio" id="male" name="gender" class="m0">
-        <label for="male" class="gender">Male</label>
-        </span>
-
-        <button type="submit" class="signbut bolder" name="submit">Sign Up</button>
-    </form>
-    <br>
-    <a href="login.php">Login</a>
-  </body>
-
-      </div>
-      <div class="formbox">
-      </div>
-    </div>
-  </div>
-</div>
-<div id="footer_wrapper">
-
-  <div id="footer2">
-    <a href="#">Sign Up</a><a href="#">Log In</a><a href="#">Messenger</a><a href="#">DotNetTec</a><a href="#">Mobile</a><a href="#">Find Friends</a>
-    <a href="#">Badges</a><a href="#">People</a><a href="#">Pages</a><a href="#">Places</a><a href="#">Games</a><a href="#">Locations</a>
-    <a href="">Celebrities</a><a href="">Groups</a><a href="">Moments</a><a href="">About</a>
-    <a href="">Create Advert</a><a href="">Create Page</a><a href="">Developers</a>
-    <a href="">Careers</a><a href="">Privacy</a><a href="">Cookies</a><a href="">Ads</a><a href="">Terms</a><a href="">Help</a>
-  </div>
-<style>
-  body {
-  margin: 0;
-  font-family: "Lucida Grande", tahoma, verdana, arial, sans-serif;
-  line-height: 1.28;
-}
-
-#navwrapper {
-  width: 100%;
-  height: 82px;
-  background-color: #1877f2;
-}
-
-#navbar {
-  margin: 0 auto;
-  width: 980px;
-  height: 59px;
-}
-
-#contentwrapper {
-  width: 100%;
-  height: 606px;
-  background-color: #edf0f5;
-}
-
-#content {
-  margin: 0 auto;
-  width: 980px;
-  padding-top: 20px;
-}
-
-h1 {
-  font-family: tahoma, verdana, arial, sans-serif;
-  font-size: 38px;
-  letter-spacing: 0.05px;
-  margin: 0;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-}
-
-.logowrapper {
-  display: block;
-  padding: 30px 0;
-}
-
-#button {
-  position: relative;
-  width: 45px;
-  height: 18px;
-  background-color: #5b72a9;
-  border: 1px solid #999;
-  border-color: #8b9dc3 #2f477a #29447e #1a356e;
-  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-}
-
-.tablewrapper {
-  float: right;
-  margin-top: 15px;
-}
-
-.row1 {
-  color: #fff;
-  font-size: 11px;
-  width: 164px;
-  cursor: pointer;
-}
-
-.inputtext {
-  border-color: #1d2a5b;
-  margin: 0;
-  width: 142px;
-  border: 1px solid #bdc7d8;
-  margin: 0;
-  padding: 3px;
-  background-color: #faffbd;
-}
-
-.row2 {
-  color: #9daccb;
-  font-size: 11px;
-  width: 164px;
-  cursor: pointer;
-}
-
-#leftbod {
-  width: 565px;
-  display: inline-block;
-}
-
-.connect {
-  width: 409px;
-  height: 72px;
-  padding: 42px 0 24px;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 36px;
-  color: #333;
-  display: inline-block;
-}
-
-.leftbar {
-  padding-bottom: 10px;
-  margin-top: 20px;
-}
-
-.iconwrap {
-  margin-right: 20px;
-  width: 55px;
-}
-
-.rowtext {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
-
-.fb1 {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.rowtext2 {
-  font-size: 15px;
-  color: #666;
-  margin-left: 10px;
-}
-
-#rightbod {
-  display: inline-block;
-  vertical-align: top;
-  width: 399px;
-  height: 200px;
-  float: right;
-}
-
-.signup {
-  font-size: 36px;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.bolder {
-  font-family: "Open Sans", sans-serif;
-  text-rendering: optimizelegibility;
-  color: #333;
-}
-
-.free {
-  font-size: 19px;
-  margin-bottom: 20px;
-}
-
-.formbox {
-  display: inline-block;
-  width: 399px;
-}
-
-.inputbody {
-  display: inline-block;
-  font-size: 18px;
-  padding: 8px 10px;
-  border: 1px solid #bdc7d8;
-  -webkit-border-radius: 5px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-::-webkit-input-placeholder {
-  color: #999;
-}
-
-::-moz-placeholder {
-  color: #999;
-}
-
-:-ms-input-placeholder {
-  color: #999;
-}
-
-.in1 {
-  width: 172px;
-}
-
-.in2 {
-  width: 377px;
-}
-
-.fr {
-  float: right;
-}
-
-.fl {
-  float: left;
-}
-
-.bday {
-  font-size: 19px;
-  color: #141823;
-  -webkit-font-smoothing: antialiased;
-  margin-bottom: 5px;
-}
-
-.selectbody {
-  display: inline-block;
-  height: 30px;
-  font-size: 13px;
-  border: 1px solid #bdc7d8;
-  -webkit-border-radius: 5px;
-  color: #141823;
-}
-
-.why {
-  font-size: 11px;
-  color: #3b5998;
-  width: 150px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.h:hover {
-  text-decoration: underline;
-}
-
-.gender {
-  font-size: 18px;
-  color: #141823;
-  cursor: pointer;
-  padding: 0 10px 0 3px;
-  margin-right: 4px;
-  line-height: 18px;
-  vertical-align: middle;
-}
-
-.spanpad {
-  padding: 5px 0 5px 4px;
-  display: inline-block;
-}
-
-.mt1 {
-  margin-top: 15px;
-}
-
-.m0 {
-  margin: 0;
-}
-
-.agree {
-  font-size: 11px;
-  color: #777;
-  width: 316px;
-  margin: 11px 0 11px;
-}
-
-.link {
-  color: #3b5998;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.signbut {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #000;
-  min-width: 194px;
-  padding: 7px 20px;
-  text-align: center;
-  -webkit-border-radius: 5px;
-  border: 1px solid;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-
-.create {
-  border-top: 1px solid #a0a9c0;
-  color: #666;
-  font-size: 13px;
-  font-weight: bold;
-  margin-top: 10px;
-  padding-top: 15px;
-}
-
-#footer_wrapper {
-  width: 100%;
-  clear: both;
-  float: left;
-  margin-top: 30px;
-  min-width: 995px;
-  background-color: white;
-  text-align: left;
-}
-
-#footer1 {
-  width: 980px;
-  margin: 0px auto;
-  padding: 0px;
-  border-bottom: 1px solid #e6e6e6;
-  height: 30px;
-  line-height: 30px;
-  font-size: 12px;
-  color: #848484;
-}
-
-#footer1 a {
-  color: #365899;
-  display: inline;
-  margin-left: 10px;
-  text-decoration: none;
-}
-
-#footer1 a:hover {
-  text-decoration: underline;
-}
-
-#footer2 {
-  width: 980px;
-  margin: 0px auto;
-  padding: 0px;
-  font-size: 12px;
-  color: #848484;
-}
-
-#footer2 a {
-  color: #365899;
-  display: inline-block;
-  margin: 5px;
-  margin-left: 0px;
-  min-width: 80px;
-  text-decoration: none;
-}
-
-#footer2 a:hover {
-  text-decoration: underline;
-}
-
-h1 {
-  font-family: tahoma, verdana, arial, sans-serif;
-  font-size: 38px;
-  letter-spacing: 0.05px;
-  margin: 0;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-}
-
-</style>
-
+<head>
+  <title>User Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: #ffffff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <form method="POST" action="registration.php">
+    <label for="fname">First Name:</label>
+    <input type="text" id="fname" name="fname" required>
+
+    <label for="lname">Last Name:</label>
+    <input type="text" id="lname" name="lname" required>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required>
+
+    <label for="faculty">Faculty:</label>
+    <input type="text" id="faculty" name="faculty" required>
+
+    <label for="relationship">Relationship:</label>
+    <input type="text" id="relationship" name="relationship" required>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <p>Already have an account? <a href="login.php"><button type="button">Login</button></a></p>
+    <input type="submit" name="submit" value="Register">
+  </form>
+</body>
 </html>
